@@ -1,0 +1,28 @@
+databaseChangeLog:
+
+  - preConditions:
+      - onFail: HALT
+      - onError: HALT
+
+  - changeSet:
+      id: init-person
+      author: person-app
+
+      changes:
+        - createTable:
+            tableName: person
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKeyName: person_pk
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    notNullConstraintName: person_name_null
+                    nullable: false
