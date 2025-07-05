@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/person")
 @RequiredArgsConstructor
-public class PersonController {
+public class  PersonController {
 //a
     private final ApiPersonMapper apiPersonMapper;
     private final PersonService personService;
