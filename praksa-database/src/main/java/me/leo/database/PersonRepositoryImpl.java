@@ -1,11 +1,9 @@
 package me.leo.database;
 
-import person.app.core.repository.PersonRepository;
-import person.app.core.model.Person;
-import person.app.database.mapper.DbPersonMapper;
-import person.app.database.repository.DbPersonRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import me.leo.core.Person;
+import me.leo.core.PersonRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository

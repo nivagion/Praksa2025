@@ -1,10 +1,8 @@
 package me.leo.api;
 
-import person.app.api.mapper.ApiPersonMapper;
-import person.app.api.request.PersonRequest;
-import person.app.api.response.PersonResponse;
-import person.app.core.service.PersonService;
+
 import lombok.RequiredArgsConstructor;
+import me.leo.core.PersonService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/person")
 @RequiredArgsConstructor
-public class AppInstallationController {
+public class PersonController {
 //a
     private final ApiPersonMapper apiPersonMapper;
     private final PersonService personService;

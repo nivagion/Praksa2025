@@ -5,8 +5,6 @@
 
 package me.leo.core;
 
-import me.leo.core.Person;
-import me.leo.core.PersonRepository;
 import lombok.RequiredArgsConstructor;
 import java.util.Optional;
 import org.springframework.stereotype.Service;

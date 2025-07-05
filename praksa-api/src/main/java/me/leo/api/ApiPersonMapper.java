@@ -1,7 +1,7 @@
+package me.leo.api;
+
+import me.leo.core.Person;
 import org.springframework.stereotype.Component;
-import person.app.core.model.Person;
-import person.app.api.request.PersonRequest;
-import person.app.api.response.PersonResponse;
 
 @Component
 public class ApiPersonMapper {
