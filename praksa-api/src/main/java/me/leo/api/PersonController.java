@@ -21,8 +21,8 @@ public class  PersonController {
 
     // POST endpoint na /person
     @PostMapping
+    // toResponse vraća id i ime, a tomapper šalje coreu id=null i ime
     public ResponseEntity<PersonResponse> create(@RequestBody final PersonRequest personRequest) {
-
         return ResponseEntity.ok(apiPersonMapper.toResponse(personService.save(apiPersonMapper.toModel(personRequest))));
     }
 
