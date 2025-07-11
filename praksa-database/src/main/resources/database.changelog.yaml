@@ -3,3 +3,5 @@ databaseChangeLog:
       file: me/leo/init/Student.yaml
   - include:
       file: me/leo/init/Profesor.yaml
+  - include:
+      file: me/leo/init/Kolegij.yaml

@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - preConditions:
+      onFail: HALT
+      onError: HALT
+
+  - changeSet:
+      id: init-kolegij
+      author: kolegij-app
+
+      changes:
+        - createTable:
+            tableName: kolegij
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKeyName: kolegij_pk
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    notNullConstraintName: kolegij_name_null
+                    nullable: false
