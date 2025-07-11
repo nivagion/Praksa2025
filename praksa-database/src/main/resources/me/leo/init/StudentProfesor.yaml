@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: student-profesor-link
+      author: model-link
+
+      changes:
+        - createTable:
+            tableName: student_profesor
+            columns:
+              - column:
+                  name: student_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: profesor_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            tableName: student_profesor
+            columnNames: student_id, profesor_id
+            constraintName: pk_student_profesor
+
+        - addForeignKeyConstraint:
+            baseTableName: student_profesor
+            baseColumnNames: student_id
+            referencedTableName: student
+            referencedColumnNames: id
+            constraintName: fk_student_profesor_student
+
+        - addForeignKeyConstraint:
+            baseTableName: student_profesor
+            baseColumnNames: profesor_id
+            referencedTableName: profesor
+            referencedColumnNames: id
+            constraintName: fk_student_profesor_profesor

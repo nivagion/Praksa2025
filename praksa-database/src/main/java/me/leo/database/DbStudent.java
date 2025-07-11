@@ -3,6 +3,10 @@ package me.leo.database;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
+
 @Entity
 @Table(name = "student")
 @Getter
@@ -17,4 +21,13 @@ public class DbStudent {
 
     @Column(nullable = false)
     private String name;
+
+    @ManyToMany
+    @JoinTable(
+            name = "student_profesor",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "profesor_id")
+    )
+    private Set<DbProfesor> profesori = new HashSet<>();
+
 }

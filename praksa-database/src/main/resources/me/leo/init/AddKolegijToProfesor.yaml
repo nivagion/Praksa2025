@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-kolegij-to-profesor
+      author: model-link
+
+      changes:
+        - addColumn:
+            tableName: profesor
+            columns:
+              - column:
+                  name: kolegij_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: profesor
+            baseColumnNames: kolegij_id
+            referencedTableName: kolegij
+            referencedColumnNames: id
+            constraintName: fk_profesor_kolegij
