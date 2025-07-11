@@ -1,4 +1,5 @@
-databaseChangelog:
-
+databaseChangeLog:
   - include:
-      file: me/leo/init/Person.yaml
+      file: me/leo/init/Student.yaml
+  - include:
+      file: me/leo/init/Profesor.yaml

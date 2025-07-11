@@ -1,9 +1,9 @@
 package me.leo.application;
 
-import me.leo.api.PersonRequest;
-import me.leo.api.PersonResponse;
-import me.leo.core.Person;
-import me.leo.core.PersonRepository;
+import me.leo.api.StudentRequest;
+import me.leo.api.StudentResponse;
+import me.leo.core.Student;
+import me.leo.core.StudentRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -15,44 +15,60 @@ import org.springframework.http.ResponseEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-//@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD) // Reset context after each test
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class PersonE2EIT {
+class StudentE2EIT {
 
     @Autowired
     TestRestTemplate rest;
 
     @Autowired
-    PersonRepository personRepo;
+    StudentRepository studentRepo;
 
     static Long savedId;
 
     @Test
     @Order(1)
-    void should_save_person_and_return_created() {
-        PersonRequest req = new PersonRequest("Mert");
+    void should_save_student_and_return_created() {
+        StudentRequest req = new StudentRequest("Ana");
 
-        ResponseEntity<PersonResponse> resp = rest.postForEntity("/person", req, PersonResponse.class);
+        ResponseEntity<StudentResponse> resp = rest.postForEntity("/student", req, StudentResponse.class);
 
         assertThat(resp.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(resp.getBody()).isNotNull();
-        assertThat(resp.getBody().name()).isEqualTo("Mert");
+        assertThat(resp.getBody().name()).isEqualTo("Ana");
 
         savedId = resp.getBody().id();
     }
 
     @Test
     @Order(2)
-    void should_find_person_by_id_and_return_ok() {
+    void should_find_student_by_id_and_return_ok() {
         if (savedId == null) {
-            savedId = personRepo.save(new Person(null, "Mert")).getId();
+            savedId = studentRepo.save(new Student(null, "Ana")).id();
         }
 
-        ResponseEntity<PersonResponse> resp = rest.getForEntity("/person/{id}", PersonResponse.class, savedId);
+        ResponseEntity<StudentResponse> resp = rest.getForEntity("/student/{id}", StudentResponse.class, savedId);
 
         assertThat(resp.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(resp.getBody()).isNotNull();
         assertThat(resp.getBody().id()).isEqualTo(savedId);
     }
+
+    @Test
+    @Order(3)
+    void should_delete_student_and_return_no_content() {
+        if (savedId == null) {
+            savedId = studentRepo.save(new Student(null, "Ana")).id();
+        }
+
+        rest.delete("/student/{id}", savedId);
+
+        ResponseEntity<String> resp = rest.getForEntity("/student/{id}", String.class, savedId);
+
+        assertThat(resp.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        assertThat(resp.getBody()).contains("Student not found");
+    }
+
+
 }

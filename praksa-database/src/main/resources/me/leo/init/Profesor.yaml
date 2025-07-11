@@ -4,12 +4,12 @@ databaseChangeLog:
       onError: HALT
 
   - changeSet:
-      id: init-person
-      author: person-app
+      id: init-profesor
+      author: profesor-app
 
       changes:
         - createTable:
-            tableName: person
+            tableName: profesor
             columns:
               - column:
                   name: id
@@ -17,11 +17,11 @@ databaseChangeLog:
                   autoIncrement: true
                   constraints:
                     nullable: false
-                    primaryKeyName: person_pk
+                    primaryKeyName: profesor_pk
                     primaryKey: true
               - column:
                   name: name
                   type: VARCHAR(255)
                   constraints:
-                    notNullConstraintName: person_name_null
+                    notNullConstraintName: profesor_name_null
                     nullable: false
