@@ -16,9 +16,10 @@ public class ProfesorController {
 
     @PostMapping
     public ResponseEntity<ProfesorResponse> create(@RequestBody ProfesorRequest request) {
-        Profesor saved = profesorService.save(request.name());
+        Profesor saved = profesorService.save(apiProfesorMapper.toModel(request));
         return ResponseEntity.ok(apiProfesorMapper.toResponse(saved));
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<ProfesorResponse> findById(@PathVariable long id) {

@@ -11,6 +11,6 @@ public class ApiProfesorMapper {
     }
 
     public Profesor toModel(ProfesorRequest request) {
-        return new Profesor(null, request.name());
+        return new Profesor(null, request.name(), request.kolegijId());
     }
 }

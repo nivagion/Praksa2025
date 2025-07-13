@@ -3,6 +3,8 @@ package me.leo.database;
 import me.leo.core.Student;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
+
 @Component
 public class DbStudentMapper {
 
@@ -11,6 +13,6 @@ public class DbStudentMapper {
     }
 
     public DbStudent toEntity(Student model) {
-        return new DbStudent(model.id(), model.name());
+        return new DbStudent(model.id(), model.name(), new HashSet<>());
     }
 }

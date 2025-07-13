@@ -2,8 +2,7 @@ package me.leo.application;
 
 import me.leo.api.ProfesorRequest;
 import me.leo.api.ProfesorResponse;
-import me.leo.core.Profesor;
-import me.leo.core.ProfesorRepository;
+import me.leo.core.*;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -24,12 +23,23 @@ class ProfesorE2EIT {
     @Autowired
     ProfesorRepository profesorRepo;
 
+    @Autowired
+    KolegijRepository kolegijRepo;
+
     static Long savedId;
+    static Long kolegijId;
+
+    @BeforeAll
+    static void setup(@Autowired KolegijRepository kolegijRepo) {
+        // Stvaramo kolegij samo jednom prije svih testova
+        Kolegij kolegij = kolegijRepo.save(new Kolegij(null, "Matematika"));
+        kolegijId = kolegij.id();
+    }
 
     @Test
     @Order(1)
     void should_save_profesor_and_return_created() {
-        ProfesorRequest req = new ProfesorRequest("Marko");
+        ProfesorRequest req = new ProfesorRequest("Marko", kolegijId);
 
         ResponseEntity<ProfesorResponse> resp = rest.postForEntity("/profesor", req, ProfesorResponse.class);
 
@@ -44,7 +54,7 @@ class ProfesorE2EIT {
     @Order(2)
     void should_find_profesor_by_id_and_return_ok() {
         if (savedId == null) {
-            savedId = profesorRepo.save(new Profesor(null, "Marko")).id();
+            savedId = profesorRepo.save(new Profesor(null, "Marko", kolegijId)).id();
         }
 
         ResponseEntity<ProfesorResponse> resp = rest.getForEntity("/profesor/{id}", ProfesorResponse.class, savedId);
@@ -58,7 +68,7 @@ class ProfesorE2EIT {
     @Order(3)
     void should_delete_profesor_and_return_no_content() {
         if (savedId == null) {
-            savedId = profesorRepo.save(new Profesor(null, "Marko")).id();
+            savedId = profesorRepo.save(new Profesor(null, "Marko", kolegijId)).id();
         }
 
         rest.delete("/profesor/{id}", savedId);

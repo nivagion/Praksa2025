@@ -9,9 +9,10 @@ public class ProfesorService {
 
     private final ProfesorRepository profesorRepository;
 
-    public Profesor save(String name) {
-        return profesorRepository.save(new Profesor(null, name));
+    public Profesor save(Profesor profesor) {
+        return profesorRepository.save(profesor);
     }
+
 
     public Profesor findById(long id) {
         return profesorRepository.findById(id)
