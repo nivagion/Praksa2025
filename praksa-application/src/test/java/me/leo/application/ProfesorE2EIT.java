@@ -1,8 +1,11 @@
 package me.leo.application;
 
-import me.leo.api.ProfesorRequest;
-import me.leo.api.ProfesorResponse;
-import me.leo.core.*;
+import me.leo.api.request.ProfesorRequest;
+import me.leo.api.response.ProfesorResponse;
+import me.leo.core.model.Kolegij;
+import me.leo.core.model.Profesor;
+import me.leo.core.repository.KolegijRepository;
+import me.leo.core.repository.ProfesorRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;

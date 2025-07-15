@@ -1,9 +1,9 @@
 package me.leo.application;
 
-import me.leo.api.KolegijRequest;
-import me.leo.api.KolegijResponse;
-import me.leo.core.Kolegij;
-import me.leo.core.KolegijRepository;
+import me.leo.api.request.KolegijRequest;
+import me.leo.api.response.KolegijResponse;
+import me.leo.core.model.Kolegij;
+import me.leo.core.repository.KolegijRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
