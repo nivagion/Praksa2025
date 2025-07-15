@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class DbProfesorMapper {
 
-    private final DbKolegijRepository dbKolegijRepository;
 
     public Profesor toModel(DbProfesor entity) {
         return new Profesor(
@@ -22,10 +21,7 @@ public class DbProfesorMapper {
     }
 
     public DbProfesor toEntity(Profesor model) {
-        DbKolegij kolegij = dbKolegijRepository.findById(model.kolegijId())
-                .orElseThrow(() -> new IllegalArgumentException("Kolegij not found"));
-
-        return new DbProfesor(model.id(), model.name(), kolegij);
+        return new DbProfesor(model.id(), model.name(), null);
     }
 }
 
