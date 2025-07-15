@@ -15,10 +15,8 @@ import org.springframework.http.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class ProfesorE2EIT {
+class ProfesorE2EIT extends BaseE2ETest{
 
     @Autowired
     TestRestTemplate rest;
@@ -32,11 +30,12 @@ class ProfesorE2EIT {
     static Long savedId;
     static Long kolegijId;
 
-    @BeforeAll
-    static void setup(@Autowired KolegijRepository kolegijRepo) {
-        // Stvaramo kolegij samo jednom prije svih testova
-        Kolegij kolegij = kolegijRepo.save(new Kolegij(null, "Matematika"));
-        kolegijId = kolegij.id();
+    @BeforeEach
+    void setup() {
+        if (kolegijId == null) {
+            Kolegij kolegij = kolegijRepo.save(new Kolegij(null, "Matematika"));
+            kolegijId = kolegij.id();
+        }
     }
 
     @Test
